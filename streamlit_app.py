@@ -1,10 +1,23 @@
 import streamlit as st
-import joblib
+import sys
+st.write("✅ Python version:", sys.version)
+
+# Debug block: Test if joblib imports successfully
+try:
+    import joblib
+    st.success("✅ joblib imported successfully")
+except Exception as e:
+    st.error(f"❌ Failed to import joblib: {e}")
+
 import numpy as np
 
 # Load models
-clf = joblib.load("classifier.pkl")
-reg = joblib.load("regressor.pkl")
+try:
+    clf = joblib.load("classifier.pkl")
+    reg = joblib.load("regressor.pkl")
+except Exception as e:
+    st.error(f"❌ Failed to load model files: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Student Performance Predictor", page_icon="🎓")
 st.title("🎓 Student Performance Predictor")
